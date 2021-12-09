@@ -156,6 +156,49 @@ const Detalle = ({navigation, route}) => {
   },[])
 
   console.log('dd',route.params)
+
+const action = ()=>{
+    axios.post('http://167.172.238.188:8000/api/token/',{
+        "username": 'Fulcrum',
+        "password": '123456'
+      })
+      .then(
+      (res)=>{
+        const auth="Bearer "+res.data.access
+        axios.get('http://167.172.238.188:8000/video?search='+route.params.id,
+        {              
+          headers : {'Authorization': auth,}
+        }
+        )
+        .then(
+          (res)=>{
+            console.log("video", res.data)
+            let lista1 = [];
+            for(let lista of res.data){
+              //setListVideoIds(lista.enlace)
+              console.log("++++++++++---------",lista.enlace)
+              lista1.push(lista.enlace)
+              //setData(res.data)
+            }  
+            console.log("++++++++++-----+++--",lista1)
+            navigation.navigate('Videos', lista1)           
+          }
+        )
+        .catch(
+          (res)=>{
+            console.warn('Error:', res)
+          }
+        )
+      }
+      )
+      .catch(
+        (response)=>{
+          response===404 ? console.warn('lo sientimos no tenemos servicios') :console.warn('Error:' ,response)
+        }
+      )   
+}
+
+
   return (
       <>
       <View style={styles.containerInit}>
@@ -251,7 +294,7 @@ const Detalle = ({navigation, route}) => {
         </View>
         <View style={styles.containerbuton}>
           <View style={{flex:0.3, marginLeft:50}}>
-            <Button windowHeight={windowHeight/16} windowWidth={windowWidth/5}></Button>
+            <Button windowHeight={windowHeight/16} windowWidth={windowWidth/5} onPress={action}></Button>
           </View>
           {route.params.grupo==='AD'?
           <View style={{flex:0.7, alignItems: 'flex-end',marginRight: 50}}>

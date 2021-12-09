@@ -14,14 +14,14 @@ import {
 import YouTube from 'react-native-youtube';
 import { windowHeight, windowWidth } from '../../resource/Dimensions';
 
-const CamaraVigilancia = ({navigation, route}) => {
+const CamaraVigilancia = ({navigation, route, listVideoIds}) => {
   const youtubePlayerRef = useRef();
-  const singleVideoId = 'xluNhJ09YFA';
-  const listVideoIds = [
+  const singleVideoId = 'xluNhJ09YFA';  
+  /*const listVideoIds = [
     'xluNhJ09YFA',
     'rsTLyukvxGU',
     'vrt8Pp7Nu8A'
-  ];
+  ];*/
   
   const [isReady, setIsReady] = useState(false);
   const [status, setStatus] = useState(null);
@@ -38,6 +38,7 @@ const CamaraVigilancia = ({navigation, route}) => {
   const [result, setResult] = useState(false);
   const [ver, setVer] = useState(1)
   
+ 
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView

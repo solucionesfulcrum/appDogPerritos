@@ -11,7 +11,9 @@ import Footer from '../../component/footer/Footer';
 import CardVideo from '../../component/card/CardVideo'
 
 const Videos = ({navigation, route}) => {
-
+    console.log("------asdsadsad----", route.params)
+    //const [listVideoIds, setListVideoIds] = useState([])
+    //let listVideoIds = []
     const styles = StyleSheet.create({
         container: {
             flex: 0.9,
@@ -22,7 +24,7 @@ const Videos = ({navigation, route}) => {
         },
     });  
 
-    useEffect (()=>{
+    /*useEffect (()=>{
         axios.post('http://167.172.238.188:8000/api/token/',{
             "username": 'Fulcrum',
             "password": '123456'
@@ -30,7 +32,7 @@ const Videos = ({navigation, route}) => {
           .then(
           (res)=>{
             const auth="Bearer "+res.data.access
-            axios.get('http://167.172.238.188:8000/video/',
+            axios.get('http://167.172.238.188:8000/video?search='+route.params,
             {              
               headers : {'Authorization': auth,}
             }
@@ -38,7 +40,14 @@ const Videos = ({navigation, route}) => {
             .then(
               (res)=>{
                 console.log("video", res.data)
-                //setData(res.data)
+                let lista1 = [];
+                for(let lista of res.data){
+                  //setListVideoIds(lista.enlace)
+                  //console.log("++++++++++---------",lista.enlace)
+                  lista1.push(lista.enlace)
+                  //setData(res.data)
+                }
+                setListVideoIds(lista1)                
               }
             )
             .catch(
@@ -53,8 +62,8 @@ const Videos = ({navigation, route}) => {
               response===404 ? console.warn('lo sientimos no tenemos servicios') :console.warn('Error:' ,response)
             }
           )   
-      },[])
-
+      },[route.params])*/
+      //console.log("+++++--------+++++-----------",listVideoIds)
     return (
         <>
         <View style={styles.container}>
@@ -78,7 +87,7 @@ const Videos = ({navigation, route}) => {
             );
             }}
         />*/}
-        <CardVideo></CardVideo>
+        <CardVideo listVideoIds={route.params}></CardVideo>
         </View>
         <View style={styles.containerEnd}>
             <Footer navigation={navigation} home={2} estrella={2} video={1} person={2}></Footer>
